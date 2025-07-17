@@ -1,3 +1,10 @@
+# Obtener todos los emails de usuarios
+def get_emails(users):
+    return list(map(lambda u: u.email, users))
+
+# Composición: obtener usernames de usuarios activos
+def get_active_usernames(users):
+    return list(map(lambda u: u.username, filter(lambda u: u.is_active, users)))
 # Funciones utilitarias funcionales para accounts
 
 from functools import reduce

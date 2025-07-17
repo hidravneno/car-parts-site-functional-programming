@@ -5,14 +5,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def signup_view(request):
-    from .utils import is_valid_email
+    from .utils import is_valid_email, get_emails, get_active_usernames
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Programación funcional: validar email con función pura
+            # Validar email con función pura
             if is_valid_email(user.email):
                 login(request, user)
+                # Ejemplo de uso de funciones funcionales compuestas
+                from django.contrib.auth import get_user_model
+                User = get_user_model()
+                all_users = User.objects.all()
+                emails = get_emails(all_users)
+                active_usernames = get_active_usernames(all_users)
+                # Puedes usar emails y active_usernames para lógica adicional, logs, etc.
                 messages.success(request, '¡Registro exitoso!')
                 return redirect('profile')
             else:

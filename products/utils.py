@@ -1,3 +1,10 @@
+# Filtrar partes por categoría
+def get_parts_by_category(parts, category):
+    return list(filter(lambda p: getattr(p, 'category', None) == category, parts))
+
+# Composición: obtener nombres de partes disponibles por categoría
+def get_available_part_names_by_category(parts, category):
+    return list(map(lambda p: p.name, filter(lambda p: getattr(p, 'category', None) == category and getattr(p, 'stock', 0) > 0, parts)))
 # Funciones utilitarias funcionales para products
 
 from functools import reduce
